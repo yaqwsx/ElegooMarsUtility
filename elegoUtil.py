@@ -35,9 +35,11 @@ def xyCompensate(input, compensation, firstcompensation, output, debugshow):
                 comp = firstcompensation
             else:
                 comp = compensation
-            newLayer = skimage.morphology.erosion(
+            if not comp or comp == 0:
+                continue
+            newLayer = skimage.morphology.binary_erosion(
                 layer, square(comp))
-            sublayer._data = imgarr_to_rle(newLayer)
+            sublayer._data = imgarr_to_rle(skimage.img_as_ubyte(newLayer))
             if debugshow:
                 f, a = plt.subplots(1, 2)
                 a[0].imshow(layer, cmap=plt.cm.gray)
