@@ -9,6 +9,11 @@ from pyphotonfile import Photon
 from pyphotonfile.photonfile import rle_to_imgarray, imgarr_to_rle
 import sys
 import shutil
+import pkg_resources
+
+if pkg_resources.get_distribution("pyphotonfile").version != "0.2.0":
+    print("Only version 0.2.0 of pyphoton file is supported for now")
+    sys.exit(1)
 
 @click.group()
 def cli():
@@ -24,20 +29,20 @@ def xyCompensate(input, compensation, firstcompensation, output, debugshow):
     infile = Photon(input.name)
     for i in range(len(infile.layers)):
         print("Processing layer: {}/{}".format(i + 1, len(infile.layers)))
-        print(infile.layers[i])
-        layer = rle_to_imgarray(infile.layers[i]._data)
-        if i < infile.bottom_layers:
-            comp = firstcompensation
-        else:
-            comp = compensation
-        newLayer = skimage.morphology.erosion(
-            layer, square(comp))
-        infile.layers[i]._data = imgarr_to_rle(newLayer)
-        if debugshow:
-            f, a = plt.subplots(1, 2)
-            a[0].imshow(layer, cmap=plt.cm.gray)
-            a[1].imshow(newLayer, cmap=plt.cm.gray)
-            plt.show()
+        for sublayer in infile.layers[i].sublayers:
+            layer = rle_to_imgarray(sublayer._data)
+            if i < infile.bottom_layers:
+                comp = firstcompensation
+            else:
+                comp = compensation
+            newLayer = skimage.morphology.erosion(
+                layer, square(comp))
+            sublayer._data = imgarr_to_rle(newLayer)
+            if debugshow:
+                f, a = plt.subplots(1, 2)
+                a[0].imshow(layer, cmap=plt.cm.gray)
+                a[1].imshow(newLayer, cmap=plt.cm.gray)
+                plt.show()
     infile.write(output.name)
 
 @click.command()
