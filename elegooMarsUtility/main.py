@@ -1,12 +1,7 @@
 #!/usr/bin/env python3
 
 import click
-import numpy as np
-import skimage
-from skimage.morphology import square, disk
-from matplotlib import pyplot as plt
-from pyphotonfile import Photon
-from pyphotonfile.photonfile import rle_to_imgarray, imgarr_to_rle
+import emUtility
 import sys
 import shutil
 import pkg_resources
@@ -26,26 +21,8 @@ def cli():
 @click.option('--output', '-o', type=click.File('wb'))
 @click.option('--debugShow', type=bool, default=False)
 def xyCompensate(input, compensation, firstcompensation, output, debugshow):
-    infile = Photon(input.name)
-    for i in range(len(infile.layers)):
-        print("Processing layer: {}/{}".format(i + 1, len(infile.layers)))
-        for sublayer in infile.layers[i].sublayers:
-            layer = rle_to_imgarray(sublayer._data)
-            if i < infile.bottom_layers:
-                comp = firstcompensation
-            else:
-                comp = compensation
-            if not comp or comp == 0:
-                continue
-            newLayer = skimage.morphology.binary_erosion(
-                layer, square(comp))
-            sublayer._data = imgarr_to_rle(skimage.img_as_ubyte(newLayer))
-            if debugshow:
-                f, a = plt.subplots(1, 2)
-                a[0].imshow(layer, cmap=plt.cm.gray)
-                a[1].imshow(newLayer, cmap=plt.cm.gray)
-                plt.show()
-    infile.write(output.name)
+    emUtility.xyCompensate(input.name, compensation, firstcompensation, output.name,
+        lambda x, y: print("Processing layer: {}/{}".format(x, y)), debugshow)
 
 @click.command()
 @click.argument("input")

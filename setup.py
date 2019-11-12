@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ElegooMarsUtility",
-    version="0.1",
+    version="0.2",
     author="Jan Mrázek",
     author_email="email@honzamrazek.cz",
     description="Utility to post process sliced models for Elegoo Mars",
@@ -25,7 +25,8 @@ setuptools.setup(
         "click",
         "numpy",
         "pyphotonfile>=0.2",
-        "scikit-image"
+        "scikit-image",
+        "Pillow==6.1.0"
     ],
     zip_safe=False,
     include_package_data=True,
