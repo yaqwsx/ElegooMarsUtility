@@ -26,7 +26,7 @@ setuptools.setup(
         "numpy",
         "pyphotonfile>=0.2",
         "scikit-image",
-        "Pillow==6.1.0"
+        "Pillow==6.2.0"
     ],
     zip_safe=False,
     include_package_data=True,
