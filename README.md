@@ -2,6 +2,18 @@
 
 Simple tool to post-process CBDDLP files from ChiTuBox.
 
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E2181LU)
+
+## Usage
+
+If you are a Windows user, there pre-built GUI available at the [release
+page](https://github.com/yaqwsx/ElegooMarsUtility/releases). Just download it
+and run it. There might be a false positive alarm by your anti-virus software.
+Please add an exception or follow the installation procedure below (it does not
+trigger false positives, however, it is slightly complicated).
+
+If you use Linux, please follow the installation procedure using PIP below.
+
 ## Installation
 
 First, you have to install bleeding edge version of the pyphotonfile library as
