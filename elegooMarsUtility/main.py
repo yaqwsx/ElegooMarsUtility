@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import click
-import emUtility
+from elegooMarsUtility import emUtility
 import sys
 import shutil
 import pkg_resources

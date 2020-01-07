@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ElegooMarsUtility",
-    version="0.2",
+    version="0.2.1",
     author="Jan Mrázek",
     author_email="email@honzamrazek.cz",
     description="Utility to post process sliced models for Elegoo Mars",

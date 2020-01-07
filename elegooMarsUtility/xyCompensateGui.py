@@ -3,7 +3,7 @@
 import PySimpleGUI as sg
 import sys
 import time
-import emUtility
+from elegooMarsUtility import emUtility
 
 layout = [
           [sg.Text("Please enter your calibration data, input and output file")],
