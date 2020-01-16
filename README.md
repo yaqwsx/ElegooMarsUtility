@@ -43,7 +43,8 @@ leads to slightly larger components (and smaller holes).
 Arguments:
 - `-c`, `--compensation` - the amount of compensation for regular layers. The
   unit is a single pixel. You have to find the correct amount empirically by
-  printing a test object and measuring it
+  printing a test object and measuring it. It the compensation is negative the
+  footprint is enlarged.
 - `-f`, `--firstCompensation` - the amount of compensation for the first layers.
   Argument is the same as in the previous case.
 - `-o`, `--output` - filename for the resulting file

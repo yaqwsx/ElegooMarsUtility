@@ -17,12 +17,17 @@ def xyCompensate(infilename, compensation, firstcompensation, outfilename, repor
                 comp = compensation
             if not comp or comp == 0:
                 continue
-            newLayer = skimage.morphology.binary_erosion(
-                layer, square(comp))
+            if comp < 0:
+                newLayer = skimage.morphology.binary_dilation(
+                    layer, square(-comp))
+            else:
+                newLayer = skimage.morphology.binary_erosion(
+                    layer, square(comp))
             sublayer._data = imgarr_to_rle(skimage.img_as_ubyte(newLayer))
             if debugshow:
                 f, a = plt.subplots(1, 2)
                 a[0].imshow(layer, cmap=plt.cm.gray)
                 a[1].imshow(newLayer, cmap=plt.cm.gray)
                 plt.show()
+    infile.write(outfilename)
     infile.write(outfilename)
