@@ -10,13 +10,13 @@ def xyCompensate(infilename, compensation, firstcompensation, outfilename, repor
     for i in range(len(infile.layers)):
         report(i + 1, len(infile.layers))
         for sublayer in infile.layers[i].sublayers:
-            layer = rle_to_imgarray(sublayer._data)
             if i < infile.bottom_layers:
                 comp = firstcompensation
             else:
                 comp = compensation
             if not comp or comp == 0:
                 continue
+            layer = rle_to_imgarray(sublayer._data)
             if comp < 0:
                 newLayer = skimage.morphology.binary_dilation(
                     layer, square(-comp))
